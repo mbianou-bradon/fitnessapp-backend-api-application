@@ -7,7 +7,7 @@ const exerciseSchema = new mongoose.Schema({
         unique: [true, "Exercise name must be unique. Please enter a different exercise name"]
     },
     desc: {
-        type: String,
+        type: Array,
         required: [true, "Please give a short description of the exercise"],
     },
     duration: {
@@ -22,6 +22,13 @@ const exerciseSchema = new mongoose.Schema({
         type: String,
         required: [true, "Please enter an Image for the exercise"],
     },
+    focusArea: {
+        type: Array,
+        required: true,
+    },
+    workoutCategory: {
+        type: String
+    }
 });
 
 
