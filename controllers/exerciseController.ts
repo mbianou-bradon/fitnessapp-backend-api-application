@@ -1,6 +1,6 @@
 import mongoose from "mongoose"
 import Exercise from "../models/exerciseModel"
-import { catchAsync } from "../utils/catchAsync"
+
 
 
 
@@ -30,15 +30,17 @@ export const createExercise = async(req, res, next)=>{
 
 // Get a new exercise
 export const getExercise = async(req, res, next)=>{
-    const { id } = req.params
-    const exercise = Exercise.findById(id)
+    const id  = req.params.exercise;
 
-    if(!exercise){
-        return res.status(404).json({message: "Exercise Doesn't exist"})
-    }
 
     if(!mongoose.Types.ObjectId.isValid(id)){
-        return res.status(404).json({message: "Exercise Doesn't exist"})
+        return res.status(404).json({message: "Exercise Doesn't exist! Wrong id"})
+    }
+   
+    const exercise = await Exercise.findById(id)
+
+    if(!exercise){
+        return res.status(404).json({message: "Exercise Doesn't exist! Not Found!"})
     }
 
     return next(
@@ -51,10 +53,13 @@ export const getExercise = async(req, res, next)=>{
 
 
 //Get all the exercise
-export const getAllExercises = async(req, res, next)=>{
+export const getAllExercises =async (req, res, next)=>{
     const exercises = await Exercise.find({}).sort({createdAt: -1})
-
-    res.status(200).json(exercises)
+    
+    // next(res.status(200).send('It worked!'));
+    return next(
+        res.status(200).json(exercises)
+    )
     
 };
 

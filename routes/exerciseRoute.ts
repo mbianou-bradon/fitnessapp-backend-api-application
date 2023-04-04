@@ -7,13 +7,13 @@ const router = express.Router()
 
 router.get('/', getAllExercises)
 
-// Get a single exercise
-
-router.get('/:exercise', getExercise)
-
 // POST a single exercise
 
 router.post('/', createExercise)
+
+// Get a single exercise
+
+router.get('/:exercise', getExercise)
 
 // DELETE an exercise
 
