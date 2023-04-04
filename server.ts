@@ -1,11 +1,12 @@
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config()
-}
+import * as dotenv from "dotenv"
 import express from"express"
 import mongoose from"mongoose"
 import exerciseRoutes from"./routes/exerciseRoute"
 
 
+if (process.env.NODE_ENV !== 'production') {
+  dotenv.config()
+}
 
 const app = express()
 
@@ -35,7 +36,7 @@ const DBURI = process.env.dbURI
 mongoose.connect(DBURI)
     .then(()=>{
         app.listen(PORT, ()=>{
-            console.log("Listening to server in port", process.env.PORT)
+            console.log("Listening to server in port", PORT)
         })
         console.log("successfully connected to database")
     })
