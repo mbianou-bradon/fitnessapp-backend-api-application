@@ -27,11 +27,14 @@ app.use((req, res, next)=>{
 app.use("/api/exercises", exerciseRoutes);
 
 
+const PORT = process.env.PORT;
+const DBURI = process.env.dbURI
+
 // Connect to MongoDB
 
-mongoose.connect(process.env.dbURI)
+mongoose.connect(DBURI)
     .then(()=>{
-        app.listen(process.env.PORT, ()=>{
+        app.listen(PORT, ()=>{
             console.log("Listening to server in port", process.env.PORT)
         })
         console.log("successfully connected to database")
