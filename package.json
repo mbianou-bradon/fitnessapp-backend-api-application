@@ -20,7 +20,6 @@
   },
   "homepage": "https://github.com/mbianou-bradon/fitnessapp-backend-api-application#readme",
   "dependencies": {
-    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "mongoose": "^7.0.3",
     "nodemon": "^2.0.22"
@@ -29,7 +28,6 @@
     "@types/express": "^4.17.17",
     "@types/node": "^18.15.11",
     "ts-node": "^10.9.1",
-    "tsx": "^3.12.6",
     "typescript": "^5.0.3"
   }
 }

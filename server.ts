@@ -1,18 +1,14 @@
-import * as dotenv from "dotenv"
 import express from"express"
 import mongoose from"mongoose"
 import exerciseRoutes from"./routes/exerciseRoute"
 
 
 if (process.env.NODE_ENV !== 'production') {
-  dotenv.config()
+  require('dotenv').config()
 }
 
 const app = express()
 
-// app.listen(3000, ()=> {
-//     console.log("Listerning Server at Port 3000")
-// })
 
 // middleware
 app.use(express.json);
