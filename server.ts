@@ -1,4 +1,6 @@
-require("dotenv").config();
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
 import express from"express"
 import mongoose from"mongoose"
 import exerciseRoutes from"./routes/exerciseRoute"

@@ -5,7 +5,7 @@ import { catchAsync } from "../utils/catchAsync"
 
 
 // Create a new exercise and store in database
-export const createExercise = catchAsync(async(req, res, next)=>{
+export const createExercise = async(req, res, next)=>{
     const {name, desc, duration, restTime, imgUrl, focusArea, workoutCategory} = req.body
     const exercise = {
         name,
@@ -25,11 +25,11 @@ export const createExercise = catchAsync(async(req, res, next)=>{
             data: newExercise
         })
     )
-})
+}
 
 
 // Get a new exercise
-export const getExercise = catchAsync(async(req, res, next)=>{
+export const getExercise = async(req, res, next)=>{
     const { id } = req.params
     const exercise = Exercise.findById(id)
 
@@ -47,22 +47,21 @@ export const getExercise = catchAsync(async(req, res, next)=>{
             data: exercise,
         })
     )
-})
+};
 
 
 //Get all the exercise
 export const getAllExercises = async(req, res, next)=>{
     const exercises = await Exercise.find({}).sort({createdAt: -1})
 
-    
     res.status(200).json(exercises)
     
-}
+};
 
 
 
 // Update an exercise
-export const updateExercise = catchAsync(async(req, res, next)=> {
+export const updateExercise = async(req, res, next)=> {
     const { id } = req.params
 
     if(!mongoose.Types.ObjectId.isValid(id)){
@@ -94,10 +93,10 @@ export const updateExercise = catchAsync(async(req, res, next)=> {
             data: exercise
         })
     )
-})
+};
 
 // Delete an exercise
-export const deleteExercise = catchAsync(async(req, res, next) => {
+export const deleteExercise = async(req, res, next) => {
     const { id } = req.params;
 
     if(!mongoose.Types.ObjectId.isValid(id)){
@@ -126,5 +125,5 @@ export const deleteExercise = catchAsync(async(req, res, next) => {
             data: exercise
         })
     )
-});
+};
 
