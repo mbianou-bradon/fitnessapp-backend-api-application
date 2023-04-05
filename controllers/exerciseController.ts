@@ -6,23 +6,29 @@ import Exercise from "../models/exerciseModel"
 
 // Create a new exercise and store in database
 export const createExercise = async(req, res, next)=>{
-    const {name, desc, duration, restTime, imgUrl, focusArea, workoutCategory} = req.body
-    const exercise = {
-        name,
-        desc,
-        duration,
-        restTime,
-        imgUrl,
-        focusArea,
-        workoutCategory,
-    }
 
-    const newExercise = await Exercise.create(exercise)
+    // const {name, desc, duration, restTime, imgUrl, focusArea, workoutCategory} = req.body
+   
+    // const exercise = {
+    //     name,
+    //     desc,
+    //     duration,
+    //     restTime,
+    //     imgUrl,
+    //     focusArea,
+    //     workoutCategory,
+    // }
+
+    const exercise = new Exercise(req.body)
+
+        exercise.save()
+    // const newExercise = await Exercise.create(exercise)
+
     
     return next(
         res.status(201).json({
             status: "OK",
-            data: newExercise
+            data: exercise
         })
     )
 }
@@ -30,7 +36,7 @@ export const createExercise = async(req, res, next)=>{
 
 // Get a new exercise
 export const getExercise = async(req, res, next)=>{
-    const id  = req.params.exercise;
+    const { id }  = req.params;
 
 
     if(!mongoose.Types.ObjectId.isValid(id)){

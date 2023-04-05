@@ -31,29 +31,30 @@ mongoose.connect(DBURI)
 
 
 // // middleware
-// app.use(express.json);
+app.use(express.json);
 
-// app.use((req, res, next)=>{
-//     console.log(req.path, req.method);
-//     next();
-// });
+app.use((req, res, next)=>{
+    console.log(req.path, req.method);
+    next();
+});
 
 
-// routes 
+// Different routes 
 
 
 app.use("/api/exercises", exerciseRoutes);
-app.use("/api/workout", workoutRoutes);
+app.use("/api/workouts", workoutRoutes);
 
 app.use('/', (req, res) => {
-    const endpoints = {
+
+    const endPoints = {
       "/": "list of endpoint",
-      "/api/workouts": "json of all workouts",
-      "/api/exercises": "json of all exercises",
-      "/api/exercises/:id": "create/update/delete and exercise",
-      "/api/workouts/:id": "create/update/delete a category",
+      "/api/workouts": "JSON of all Workouts",
+      "/api/exercises": "JSON of all Exercises",
+      "/api/exercises/:id": "GET /CREATE / DELETE / UPDATE an Exercise",
+      "/api/workouts/:id": "GET /CREATE / DELETE / UPDATE a category",
     }
-   return res.status(200).json(endpoints);
+   return res.status(200).json(endPoints);
 })
 
   // 404

@@ -1,6 +1,5 @@
 import mongoose from "mongoose"
 import Exercise from "../models/exerciseModel"
-import { catchAsync } from "../utils/catchAsync"
 import Workout from "../models/workoutModel"
 
 
@@ -32,16 +31,16 @@ export const createWorkout = async(req, res, next)=>{
 // Get a new exercise
 export const getWorkout = async(req, res, next)=>{
     const { id } = req.params
-    const workout = Workout.findById(id)
-
-    if(!workout){
-        return res.status(404).json({message: "Workout Doesn't exist"})
-    }
 
     if(!mongoose.Types.ObjectId.isValid(id)){
         return res.status(404).json({message: "Workout Doesn't exist"})
     }
 
+    const workout = Workout.findById(id)
+
+    if(!workout){
+        return res.status(404).json({message: "Workout Doesn't exist"})
+    }
     return next(
         res.status(201).json({
             status: "OK",
