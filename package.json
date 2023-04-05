@@ -29,7 +29,6 @@
     "@types/express": "^4.17.17",
     "@types/node": "^18.15.11",
     "ts-node": "^10.9.1",
-    "tsx": "^3.12.6",
     "typescript": "^5.0.3"
   }
 }

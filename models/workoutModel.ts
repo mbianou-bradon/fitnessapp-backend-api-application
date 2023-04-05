@@ -13,6 +13,10 @@ const workoutSchema = new mongoose.Schema({
     imgUrl: {
         type: String,
         required: [true, "Please input the path to image of this workout"],
+    },
+    exercises: {
+        type: Array,
+        required: [true, "PLease Add atleast on exercise in the workout"]
     }
 })
 

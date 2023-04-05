@@ -1,19 +1,36 @@
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config()
-}
 import express from"express"
 import mongoose from"mongoose"
 import exerciseRoutes from"./routes/exerciseRoute"
+import workoutRoutes from "./routes/workoutRoutes"
 
 
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config({path: "./vars/.env"})
+}
 
 const app = express()
 
-// app.listen(3000, ()=> {
-//     console.log("Listerning Server at Port 3000")
-// })
+const PORT = process.env.PORT;
+const DBURI = process.env.dbURI
 
-// middleware
+
+        
+// Connect to MongoDB
+
+mongoose.connect(DBURI)
+    .then(()=>{
+        app.listen(PORT, ()=>{
+    console.log("Listening to server in port", PORT)
+        })
+       console.log("successfully connected to database")
+
+    })
+    .catch((err)=>{
+        console.log(err)
+    })
+
+
+// // middleware
 app.use(express.json);
 
 app.use((req, res, next)=>{
@@ -22,24 +39,25 @@ app.use((req, res, next)=>{
 });
 
 
-// routes 
+// Different routes 
+
 
 app.use("/api/exercises", exerciseRoutes);
+app.use("/api/workouts", workoutRoutes);
 
+app.use('/', (req, res) => {
 
-const PORT = process.env.PORT;
-const DBURI = process.env.dbURI
+    const endPoints = {
+      "/": "list of endpoint",
+      "/api/workouts": "JSON of all Workouts",
+      "/api/exercises": "JSON of all Exercises",
+      "/api/exercises/:id": "GET /CREATE / DELETE / UPDATE an Exercise",
+      "/api/workouts/:id": "GET /CREATE / DELETE / UPDATE a category",
+    }
+   return res.status(200).json(endPoints);
+})
 
-// Connect to MongoDB
-
-mongoose.connect(DBURI)
-    .then(()=>{
-        app.listen(PORT, ()=>{
-            console.log("Listening to server in port", process.env.PORT)
-        })
-        console.log("successfully connected to database")
-    })
-    .catch((err)=>{
-        console.log(err)
-    })
-
+  // 404
+app.use((req, res) => {
+    return res.status(404).json({message: '404 not found'});
+} );

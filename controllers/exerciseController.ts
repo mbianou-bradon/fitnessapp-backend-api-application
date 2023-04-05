@@ -1,28 +1,34 @@
 import mongoose from "mongoose"
 import Exercise from "../models/exerciseModel"
-import { catchAsync } from "../utils/catchAsync"
+
 
 
 
 // Create a new exercise and store in database
 export const createExercise = async(req, res, next)=>{
-    const {name, desc, duration, restTime, imgUrl, focusArea, workoutCategory} = req.body
-    const exercise = {
-        name,
-        desc,
-        duration,
-        restTime,
-        imgUrl,
-        focusArea,
-        workoutCategory,
-    }
 
-    const newExercise = await Exercise.create(exercise)
+    // const {name, desc, duration, restTime, imgUrl, focusArea, workoutCategory} = req.body
+   
+    // const exercise = {
+    //     name,
+    //     desc,
+    //     duration,
+    //     restTime,
+    //     imgUrl,
+    //     focusArea,
+    //     workoutCategory,
+    // }
+
+    const exercise = new Exercise(req.body)
+
+        exercise.save()
+    // const newExercise = await Exercise.create(exercise)
+
     
     return next(
         res.status(201).json({
             status: "OK",
-            data: newExercise
+            data: exercise
         })
     )
 }
@@ -30,15 +36,17 @@ export const createExercise = async(req, res, next)=>{
 
 // Get a new exercise
 export const getExercise = async(req, res, next)=>{
-    const { id } = req.params
-    const exercise = Exercise.findById(id)
+    const { id }  = req.params;
 
-    if(!exercise){
-        return res.status(404).json({message: "Exercise Doesn't exist"})
-    }
 
     if(!mongoose.Types.ObjectId.isValid(id)){
-        return res.status(404).json({message: "Exercise Doesn't exist"})
+        return res.status(404).json({message: "Exercise Doesn't exist! Wrong id"})
+    }
+   
+    const exercise = await Exercise.findById(id)
+
+    if(!exercise){
+        return res.status(404).json({message: "Exercise Doesn't exist! Not Found!"})
     }
 
     return next(
@@ -51,10 +59,13 @@ export const getExercise = async(req, res, next)=>{
 
 
 //Get all the exercise
-export const getAllExercises = async(req, res, next)=>{
+export const getAllExercises =async (req, res, next)=>{
     const exercises = await Exercise.find({}).sort({createdAt: -1})
-
-    res.status(200).json(exercises)
+    
+    // next(res.status(200).send('It worked!'));
+    return next(
+        res.status(200).json(exercises)
+    )
     
 };
 

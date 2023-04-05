@@ -27,7 +27,7 @@ const exerciseSchema = new mongoose.Schema({
         required: true,
     },
     workoutCategory: {
-        type: String
+        type: Array
     }
 });
 
