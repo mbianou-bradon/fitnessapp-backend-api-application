@@ -3,32 +3,28 @@ import Exercise from "../models/exerciseModel"
 
 
 
-
 // Create a new exercise and store in database
 export const createExercise = async(req, res, next)=>{
 
-    // const {name, desc, duration, restTime, imgUrl, focusArea, workoutCategory} = req.body
+    const {name, desc, duration, restTime, imgUrl, focusArea, workoutCategory} = req.body
    
-    // const exercise = {
-    //     name,
-    //     desc,
-    //     duration,
-    //     restTime,
-    //     imgUrl,
-    //     focusArea,
-    //     workoutCategory,
-    // }
+    const exercise = {
+        name,
+        desc,
+        duration,
+        restTime,
+        imgUrl,
+        focusArea,
+        workoutCategory
+    }
 
-    const exercise = new Exercise(req.body)
-
-        exercise.save()
-    // const newExercise = await Exercise.create(exercise)
+    const newExercise = await Exercise.create(exercise)
 
     
     return next(
         res.status(201).json({
             status: "OK",
-            data: exercise
+            data: newExercise
         })
     )
 }
