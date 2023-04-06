@@ -1,23 +1,18 @@
 import mongoose from "mongoose"
-import Exercise from "../models/exerciseModel"
 import Workout from "../models/workoutModel"
-
 
 
 // Create a new exercise and store in database
 export const createWorkout = async(req, res, next)=>{
-    const {name, desc, duration, restTime, imgUrl, focusArea, workoutCategory} = req.body
+    const {name, desc, imgUrl, exercises} = req.body
     const workout = {
         name,
         desc,
-        duration,
-        restTime,
         imgUrl,
-        focusArea,
-        workoutCategory,
+        exercises
     }
 
-    const newWorkout = await Exercise.create(workout)
+    const newWorkout = await Workout.create(workout)
     
     return next(
         res.status(201).json({
@@ -32,19 +27,22 @@ export const createWorkout = async(req, res, next)=>{
 export const getWorkout = async(req, res, next)=>{
     const { id } = req.params
 
+    console.log(id)
+
     if(!mongoose.Types.ObjectId.isValid(id)){
         return res.status(404).json({message: "Workout Doesn't exist"})
     }
 
-    const workout = Workout.findById(id)
+    const workout = await Workout.findById(id)
 
     if(!workout){
         return res.status(404).json({message: "Workout Doesn't exist"})
     }
     return next(
+        // res.status(201).json(workout)
         res.status(201).json({
             status: "OK",
-            data: workout,
+            data: workout
         })
     )
 };
