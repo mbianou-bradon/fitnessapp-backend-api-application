@@ -20,9 +20,9 @@ The API is accessible to all. The different end-points are represented below
 |UP	      |POST	    |/workouts	      |CREATE a Workout
 |UP	      |GET	    |/exercises	      |JSON of All Exercises
 |UP	      |POST	    |/exercises	      |CREATE an Exercise
-|TESTING	|PUT	    |/workouts/:id	  |UPDATE Workout with id
+|UP	      |PUT	    |/workouts/:id	  |UPDATE Workout with id
 |UP	      |DELETE	  |/workouts/:id	  |DELETE Workout with id
-|TESTING	|PUT	    |/exercises/:id	  |UPDATE Exercise with id
+|UP     	|PUT	    |/exercises/:id	  |UPDATE Exercise with id
 |UP	      |DELETE	  |/exercises/:id	  |DELETE Exercise with id
 
 ## **DATA MODEL AND TYPES**
